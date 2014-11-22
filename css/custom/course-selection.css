@@ -1,0 +1,102 @@
+.class-full-border {
+    border: 2px solid #E50B28;
+    border-radius: 7px;
+}
+
+.calendar_widget{
+    width:90%;
+    overflow:auto;
+    padding-right: 15px;
+    padding-bottom: 100px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.selection_tool{
+}
+
+.pep{
+  background: #3498db;
+  height: 10%; width: 10%;
+}
+
+.form_text_entry {
+    font-weight: 700;
+    font-size: 18px;
+    text-shadow: 2px 2px 2px rgba(255, 255, 255, 1);
+}
+
+.selecter {
+     max-width:100% !important;
+}
+
+#my_form .form-control-feedback {
+    float: right;
+}
+
+span {
+    width:100%;
+}
+
+.tt-dropdown-menu{
+  text-align: left;
+}
+.typeahead,
+.tt-query,
+.tt-hint {
+  padding: 8px 12px;
+  font-size: 24px;
+  outline: none;
+}
+.typeahead {
+  background-color: #fff;
+}
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.tt-hint {
+  color: #999
+}
+.tt-dropdown-menu {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #13AA98;
+}
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+#qtip-growl-container{
+    position: fixed;
+    top: 10px; right: 10px;
+}
+
+#qtip-growl-container .qtip{
+    position: static;
+    min-height: 0;
+    overflow: hidden;
+    margin: 0 0 5px 0;
+}
+

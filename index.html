@@ -1,0 +1,136 @@
+
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>University of Waterloo -- Course Selection Tool</title>
+<!-- CSS -->
+<link href="fonts/css/font-awesome.min.css" rel="stylesheet" >
+<link href='http://fonts.googleapis.com/css?family=Kreon:300,400,700' rel='stylesheet' type='text/css'>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/custom/course-selection.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/jquery.fs.selecter.min.css" rel="stylesheet" >
+<link href="css/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="css/fullcalendar.min.css" rel="stylesheet" />
+<link href="css/jquery.qtip.min.css" rel="stylesheet" />
+<link href="css/ladda-themeless.min.css" rel="stylesheet" >
+<link href="css/alertify.bootstrap.css" rel="stylesheet"  />
+<link href="css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- start plugins -->
+
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script src="js/custom/course-selection.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery.fs.selecter.min.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="js/fullcalendar_patched.js"></script>
+<script type="text/javascript" src="js/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="js/handlebars-v2.0.0.min.js"></script>
+<script type="text/javascript" src="js/data/course_list.js"></script>
+<script type="text/javascript" src="js/spin.min.js"></script>
+<script type="text/javascript" src="js/ladda.min.js"></script>
+<script type="text/javascript" src="js/alertify.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-toggle.min.js"></script>
+
+<script>
+	$(function() {
+		var pull 		= $('#pull');
+			menu 		= $('nav ul');
+			menuHeight	= menu.height();
+		$(pull).on('click', function(e) {
+			e.preventDefault();
+			menu.slideToggle();
+		});
+		$(window).resize(function(){
+       		var w = $(window).width();
+       		if(w > 320 && menu.is(':hidden')) {
+       			menu.removeAttr('style');
+       		}
+   		});
+	});
+    $(document).ready(function() {
+    	init();
+    });
+
+ </script>
+
+</head>
+<body>
+<!--
+<div class="header_bg" id="home">
+<div class="container">
+	<div class="row header text-center specials">
+		<div class="h_logo">
+			<a href="index.html"><img src="images/logo.png" alt="" class="responsive"/></a>
+		</div>
+		<nav class="top-nav">
+			<ul class="top-nav nav_list">
+				<li><a href="portfolio.html">portfolio</a></li>
+				<li class="page-scroll"><a href="#about">About</a></li>
+				<li class="logo page-scroll"><a title="hexa" href="index.html"><img src="images/logo.png" alt="" class="responsive"/></a></li>
+			    <li class="page-scroll"><a href="blog.html">blog</a></li>
+				<li class="page-scroll"><a href="#contact">get in touch</a></li>
+			</ul>
+			<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
+		</nav>
+		<div class="clearfix"></div>
+	</div>
+</div>
+</div>
+-->
+<div class="calendar_widget"><!-- start main -->
+	<div id="qtip-growl-container"></div>
+    <div class="row">
+        <h2 class="style">Course Selection Widget</h2>
+        <div class="selection_tool">
+            <div class="col-md-9">
+                <div id="calendar">
+                </div>
+            </div>
+            <div class="col-md-3">
+                    <form id="my_form">
+                    	<div class="form-group">
+                    		<label>Term</label> <br>
+                    		<input id="term_toggle" checked type="checkbox">
+                    	</div>
+                        <div class="form-group has-feedback">
+                            <label>Course ID</label>
+                            <input type="text" class="form-control" name="courses" id="courses" placeholder="CS245"/>
+                            <i class="form-control-feedback glyphicon glyphicon-search"></i>
+                        </div>
+                        <div class="hide">
+                            <div class="form-group">
+                                <label>Course List</label>
+                                <select class="course_list" multiple="multiple">
+                                </select>
+                            </div>
+                            <div class="form-group pull-right">
+                               <button id="form_submit_btn" class="btn btn-primary ladda-button" data-style="zoom-in">
+                               		<span class="ladda-label">Arrange</span>
+                               </button>
+                               <input id="unselect_course_btn" type="button" class="btn btn-default" value="Unselect"></button>
+                               <input id="clear_course_btn" type="button" class="btn btn-default" value="Clear"></button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div><!-- end main -->
+</body>
+</html>
