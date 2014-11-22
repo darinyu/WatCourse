@@ -378,7 +378,6 @@ var calendar = (function(){
         drag_has_overlap = false;
         hide_qtip();
         tooltip_disabled = true;
-        //console.log("DragStart");
         var course_type = event.data.type;
         var course_name = event.data.name;
         var id = event.id;
@@ -404,7 +403,6 @@ var calendar = (function(){
 
     function eventDragStop(event){
         tooltip_disabled = false;
-        //console.log("dragstop");
 
         var array = cls.fullCalendar('clientEvents');
         $.each(array, function(index, comp_event){
@@ -429,8 +427,6 @@ var calendar = (function(){
         //event_obj from drag is in diff timezone, hence need offset
         var start_this =  moment(my_event.start).add(5,'hours');
         var end_this = moment(my_event.end).add(5, 'hours');
-        //console.log("start_this: " + start_this);
-        //console.log("end_this: " + end_this);
         var overlap_threshold = 20; //mins
         $.each(array, function(index, comp_event){
             if (has_overlap) return;
@@ -447,7 +443,6 @@ var calendar = (function(){
                 }
             }
         });
-        //console.log("has_overlap: " + has_overlap);
         return {
             has_overlap:has_overlap,
             id:id,
@@ -457,9 +452,7 @@ var calendar = (function(){
     }
 
     function eventDrop(event, delta, revertFunc, jsEvent){
-        //console.log("DragDrop");
         snap_info = snap_to_placeholder(event);
-        //console.log("snap_info: " + format(snap_info));
         if (!snap_info["has_overlap"]){
             console.log("revert");
             revertFunc();
@@ -653,7 +646,6 @@ var calendar = (function(){
 
 
         function prepare_for_search(){
-            //console.log("flattened_array: " + format(flattened_course_array));
             submit_btn.stop_spin();
             arrangement_found = false;
             arranged_events = [];
@@ -678,7 +670,6 @@ var calendar = (function(){
             })
         }
 
-        //TODO check response;
         var data = response["data"];
         var valid = true;
         if (!data.length){
@@ -688,8 +679,6 @@ var calendar = (function(){
             valid = false;
         }
 
-        //console.log("data: " + format(data));
-        //console.log(format(data[0]["classes"].date));
         //check course available
         if (valid && !(data.length && data[0] && data[0]["classes"].length && data[0]["classes"][0].date.start_time)){
             alertify.set({delay: 3000});
@@ -733,9 +722,6 @@ var calendar = (function(){
             var color_str = course_type + "_color";
             if (!(color_str in course_data[course_name])){
                 course_data[course_name][color_str] = color.next_color();
-                //console.log("course_data color? Y" + course_data[course_name][color_str]);
-            } else {
-                //console.log("course_data color? N" + course_data[course_name][color_str]);
             }
             var class_info = {
                 start_time: date["start_time"],
@@ -766,19 +752,14 @@ var calendar = (function(){
                     borderColor: course_data[course_name][color_str]
                 }
                 classes.push(event_data);
-                //console.log("event_data? " + format(event_data));
             });
-            //console.log("course_data: "  + format(course_data));
-            //console.log(course_name + " " + course_type);
-            //console.log("classes: " + format(classes));
             if (classes.length != 0){
                 course_data[course_name][course_type].push(classes);
             }
 
         });
 
-        // LEC > LAB > TUT
-        //console.log(format(course_type_array));
+        // TODO: sort by number of available slots
         var flattened_course_type_info = {};
         $.each(course_type_array, function(index, course_type){
             flattened_course_type_info[course_type] = [];
@@ -904,10 +885,8 @@ var term_toggle = (function(){
 
     function get_term_code(){
         if (is_next_term()){
-            //console.log("next_term_code " + next_term_code);
             return next_term_code;
         } else {
-            //console.log("cur_term_code " + cur_term_code);
             return cur_term_code;
         }
     }
@@ -931,9 +910,7 @@ var init = function(){
 };
 
 function on_list_unselect(e){
-    //console.log(1);
     select_obj.unselect_list();
-    //console.log(2);
     calendar.clear();
 }
 
@@ -947,7 +924,6 @@ function on_form_submmit(e){
 
     function add_courses_to_calendar(){
         var term_code = term_toggle.get_term_code();
-        //console.log("term code: " + term_code);
         calendar.setNumberCourses(selected_courses.length);
         if (selected_courses.length){
             selected_courses.forEach(function(entry){
