@@ -920,7 +920,7 @@ function on_list_clear(e){
 
 function on_form_submmit(e){
     var selected_courses = [];
-    var max_num_course = 7;
+    var max_num_course = 10;
 
     function add_courses_to_calendar(){
         var term_code = term_toggle.get_term_code();
