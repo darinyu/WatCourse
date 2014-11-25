@@ -915,7 +915,6 @@ function on_list_clear(e){
 function on_form_submmit(e){
     var selected_courses = [];
     var max_num_course = $('#course_cap').is(':checked') ? 10 : 7;
-    console.log("max num course: " + max_num_course);
     function add_courses_to_calendar(){
         var term_code = term_toggle.get_term_code();
         calendar.setNumberCourses(selected_courses.length);
