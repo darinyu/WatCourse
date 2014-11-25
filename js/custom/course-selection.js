@@ -131,6 +131,7 @@ var select_obj = (function(){
         list.selecter('refresh');
         hide_empty_list();
         $("span[data-value='"+value+"']").click();
+        $(".course_list").css("height","50%"); //wierd CSS behavior fix
     }
 
     function get_length(){
@@ -654,6 +655,7 @@ var calendar = (function(){
                 alertify.error("No courses scheduled.");
                 return;
             }
+            flattened_course_array.sort(function(item1, item2){return item1.length > item2.length});
             async(function(){
                 auto_arrange_course(0, flattened_course_array, []);
             }, function(){
@@ -758,19 +760,10 @@ var calendar = (function(){
             }
 
         });
-
-        // TODO: sort by number of available slots
-        var flattened_course_type_info = {};
-        $.each(course_type_array, function(index, course_type){
-            flattened_course_type_info[course_type] = [];
-        });
         $.each(course_type_array, function(index, course_type){
             if (course_data[course_name][course_type].length){
-                flattened_course_type_info[course_type].push(course_data[course_name][course_type]);
+                flattened_course_array.push(course_data[course_name][course_type]);
             };
-        });
-        $.each(course_type_array, function(index, course_type){
-            flattened_course_array = flattened_course_array.concat(flattened_course_type_info[course_type]);
         });
 
         num_course_responded = num_course_responded + 1;
@@ -897,6 +890,7 @@ var term_toggle = (function(){
     }
 })();
 
+var preferences = {};
 var init = function(){
     console.log("course-selection.init called");
     select_obj.init();
@@ -920,8 +914,8 @@ function on_list_clear(e){
 
 function on_form_submmit(e){
     var selected_courses = [];
-    var max_num_course = 10;
-
+    var max_num_course = $('#course_cap').is(':checked') ? 10 : 7;
+    console.log("max num course: " + max_num_course);
     function add_courses_to_calendar(){
         var term_code = term_toggle.get_term_code();
         calendar.setNumberCourses(selected_courses.length);
