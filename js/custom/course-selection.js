@@ -196,8 +196,11 @@ var courses= (function(){
         return input.parent().hasClass("has-success");
     }
 
-    function select(){
+    function select(e){
         has_success();
+        console.log("here");
+        console.log(e);
+        //enter_input();
     }
 
     function check_suggestion(){
@@ -256,20 +259,21 @@ var courses= (function(){
             templates: {
                 suggestion: Handlebars.compile( suggestion_template )
             }
-        }).on('typeahead:selected typeahead:autocompleted', select)
+        }).on('typeahead:autocompleted', select)
+          .on('typeahead:selected', enter_input)
           .on('input', check_suggestion);
 
         input.on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 if (is_valid()){
-                    clear_input();
+                    enter_input();
                 }
             }
         });
     }
 
-    function clear_input(){
+    function enter_input(){
         select_obj.add_item(input.val());
         neutralize();
         input.val("").trigger("input keypress");
@@ -277,7 +281,7 @@ var courses= (function(){
 
     return {
         init:init,
-        clear_input:clear_input
+        enter_input:enter_input
     }
 })();
 
@@ -890,6 +894,20 @@ var term_toggle = (function(){
     }
 })();
 
+var time_slider = (function(){
+    function init(){
+        console.log("silder init called");
+        $("#course_start_end").slider({});
+        //Too lazy, gonna fix CSS issue here
+        $(".time_text").css("padding-left",0);
+        $(".time_text").css("padding-right",0);
+    }
+
+    return {
+        init:init
+    }
+})();
+
 var preferences = {};
 var init = function(){
     console.log("course-selection.init called");
@@ -898,9 +916,12 @@ var init = function(){
     courses.init();
     submit_btn.init()
     term_toggle.init();
+    time_slider.init();
     $("#my_form").submit(on_form_submmit);
     $("#unselect_course_btn").click(on_list_unselect);
     $("#clear_course_btn").click(on_list_clear);
+
+
 };
 
 function on_list_unselect(e){
@@ -913,6 +934,10 @@ function on_list_clear(e){
 }
 
 function on_form_submmit(e){
+    preferences = {
+        max_num_course : $('#course_cap').is(':checked') ? true : false,
+        lunch_break : $('#lunch_break').is(':checked') ? true : false,
+    }
     var selected_courses = [];
     var max_num_course = $('#course_cap').is(':checked') ? 10 : 7;
     function add_courses_to_calendar(){
@@ -932,7 +957,7 @@ function on_form_submmit(e){
     if (e.preventDefault) e.preventDefault();
     calendar.clear();
     color.clear();
-    courses.clear_input();
+    courses.enter_input();
     console.log("form submitted");
     $('.course_list option:selected').each(function(){
         selected_courses.push(this.getAttribute("value").toUpperCase());
