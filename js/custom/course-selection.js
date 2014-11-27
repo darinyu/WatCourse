@@ -143,6 +143,7 @@ var select_obj = (function(){
             $(".selecter, #"+_id).parent().parent().addClass("hide");
         } else {
             $(".selecter, #"+_id).parent().parent().removeClass("hide");
+            $("#slider").rangeSlider("resize");
         }
     }
 
@@ -198,9 +199,6 @@ var courses= (function(){
 
     function select(e){
         has_success();
-        console.log("here");
-        console.log(e);
-        //enter_input();
     }
 
     function check_suggestion(){
@@ -901,11 +899,16 @@ var term_toggle = (function(){
 
 var time_slider = (function(){
     function init(){
-        console.log("silder init called");
-        $("#course_start_end").slider({});
-        //Too lazy, gonna fix CSS issue here
-        $(".time_text").css("padding-left",0);
-        $(".time_text").css("padding-right",0);
+        $("#slider").rangeSlider({
+            bounds: {min: 8, max:22},
+            defaultValues:{min: 8, max: 22},
+            step: 1,
+            formatter: function(value){
+                    console.log(value);
+                    var cur_time = value;
+                    return cur_time > 12 ? (cur_time == 12 ? 12 : cur_time - 12) + "PM" : cur_time + "AM";
+            }
+        });
     }
 
     return {
@@ -925,8 +928,6 @@ var init = function(){
     $("#my_form").submit(on_form_submmit);
     $("#unselect_course_btn").click(on_list_unselect);
     $("#clear_course_btn").click(on_list_clear);
-
-
 };
 
 function on_list_unselect(e){

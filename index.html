@@ -22,7 +22,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="css/ladda-themeless.min.css" rel="stylesheet" >
 <link href="css/alertify.bootstrap.css" rel="stylesheet"  />
 <link href="css/bootstrap-toggle.min.css" rel="stylesheet">
-<link href="css/bootstrap-slider.min.css" rel="stylesheet">
+<link href="css/classic-min.css" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -47,7 +47,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="js/ladda.min.js"></script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-toggle.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
+
+
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/jQRangeSlider-withRuler-min.js"></script>
+
 
 <script>
 	$(function() {
@@ -121,35 +126,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <select class="course_list" multiple="multiple">
                                 </select>
                             </div>
-                            <div class="form-group">
-                              <div class="container-fluid hide">
-                              <label> Course Start/End Time </label>
-                              <div class="col-md-3 time_text">
-                                <label><span id="slide_start"> Start 8AM </span></label>
-                                <label><span id="slide_end" > End 10PM </span></label>
-                              </div>
-                              <div class="col-md-9">
-                                <input id="course_start_end" type="text" class="span2" value="" data-slider-min="8" data-slider-max="22" data-slider-step="1" data-slider-value ="[8,22]" style="width:100%"/><br>
-                              </div>
-                              </div>
+                            <div class="form-group hide">
+                              <label class="time_slide"> Desired Schedule Start/End Time </label>
+                              <div id="slider"></div>
                             </div>
                             <div class="checkbox_group">
+                              <label class="checkbox_margin"> Preferences </label>
                               <div class="checkbox hide">
                                 <label>
                                   <input type="checkbox" checked id="lunch_break">
                                     I need lunch break
-                                </label>
-                              </div>
-                              <div class="checkbox hide">
-                                <label>
-                                  <input type="checkbox" checked id="no_morning_class">
-                                    No classes before 9:30AM
-                                </label>
-                              </div>
-                              <div class="checkbox hide">
-                                <label>
-                                  <input type="checkbox" checked id="no_morning_class">
-                                    No classes after 10:00PM
                                 </label>
                               </div>
                               <div class="checkbox">
@@ -161,7 +147,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                               <div class="checkbox">
                                 <label>
                                   <input type="checkbox" id="include_tst">
-                                    Include TST ( Performance Drawback )
+                                    Include TST
                                 </label>
                               </div>
                             </div>
