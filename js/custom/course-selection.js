@@ -459,7 +459,7 @@ var calendar = (function(){
     function eventDrop(event, delta, revertFunc, jsEvent){
         snap_info = snap_to_placeholder(event);
         if (!snap_info["has_overlap"]){
-            console.log("revert");
+            //console.log("revert");
             revertFunc();
         } else {
             removeEvents([event.id]);
@@ -514,11 +514,11 @@ var calendar = (function(){
         var data = event.data;
         var qtip_config = clone(event_qtip);
         var text =  term_desc_pair("Course Name", data.name)+
-                    term_desc_pair("Instructors", data.instructors.join(" | ")) +
+                    (data.type !== "TST" ? term_desc_pair("Instructors", data.instructors.join(" | ")) : "")+
                     term_desc_pair("Start", moment(event.start).format("HH:mm"))+
                     term_desc_pair("End", moment(event.end).format("HH:mm"))+
-                    term_desc_pair("Location",data.location)+
-                    enrollment_progress(data.enrollment_total, data.enrollment_capacity);
+                    (data.type !== "TST" ? term_desc_pair("Location",data.location) : "")+
+                    (data.type !== "TST" ? enrollment_progress(data.enrollment_total, data.enrollment_capacity) : "");
         var content = {
             title: event.title,
             text:text
@@ -714,7 +714,9 @@ var calendar = (function(){
 
         $.each(data, function(index, obj){
             var course_type = obj["section"].substr(0,3);
-            if (course_type == "TST"){
+            if (course_type == "TST" && !preferences["include_tst"]){
+                //console.log(format(obj));
+                //console.log(preferences["include_tst"]);
                 return; //dont show TST in week view
             }
             if (!(course_type in course_data[course_name])){
@@ -756,6 +758,9 @@ var calendar = (function(){
                     end: time_info["end"],
                     backgroundColor: course_data[course_name][color_str],
                     borderColor: course_data[course_name][color_str]
+                }
+                if (course_type == "TST") {
+                    event_data.editable = false; //TST info is not editable
                 }
                 classes.push(event_data);
             });
@@ -937,6 +942,7 @@ function on_form_submmit(e){
     preferences = {
         max_num_course : $('#course_cap').is(':checked') ? true : false,
         lunch_break : $('#lunch_break').is(':checked') ? true : false,
+        include_tst : $('#include_tst').is(':checked') ? true : false
     }
     var selected_courses = [];
     var max_num_course = $('#course_cap').is(':checked') ? 10 : 7;
